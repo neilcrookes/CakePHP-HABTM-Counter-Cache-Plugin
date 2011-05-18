@@ -34,9 +34,9 @@ Requirements
 Installation
 ------------
 
-    git submodule add  app/plugins/habtm_counter_cache
+    git submodule add git://github.com/neilcrookes/CakePHP-HABTM-Counter-Cache-Plugin.git app/plugins/habtm_counter_cache
 
-or download from http://github.com/neilcrookes/
+or download from http://github.com/neilcrookes/CakePHP-HABTM-Counter-Cache-Plugin
 
 Add the counter cache fields to your database tables, e.g. for a tags table, add an integer field, default 0, called 'post_count'
 
