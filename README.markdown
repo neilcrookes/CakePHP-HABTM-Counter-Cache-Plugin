@@ -1,5 +1,5 @@
-CakePHP Blog Plugin
-===================
+CakePHP HABTM Counter Cache Plugin
+==================================
 
 A CakePHP plugin for Counter Cache functionality for HABTM associations
 
