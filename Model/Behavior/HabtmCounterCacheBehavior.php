@@ -356,6 +356,7 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
         'limit' => null,
         'group' => null,
         'conditions' => null,
+        'joins' => null
       );
 
       // Add the parts of the statement for updating the counter cache field
@@ -373,6 +374,7 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
           'order' => null,
           'limit' => null,
           'group' => null,
+          'joins' => null
         );
 
         // Add conditions to the counter cache sub query if there is counter
