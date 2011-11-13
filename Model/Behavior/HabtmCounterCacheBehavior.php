@@ -288,10 +288,12 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
       }
 
       // If there are old habtm ids merge them with the new ones
-      $this->_habtmIds[$model->alias][$model->id][$habtmAlias] = array_unique(array_merge(
-        $this->_habtmIds[$model->alias][$model->id][$habtmAlias],
-        $model->data[$habtmAlias][$habtmAlias]
-      ));
+      if (!empty($model->data[$habtmAlias][$habtmAlias])) {
+        $this->_habtmIds[$model->alias][$model->id][$habtmAlias] = array_unique(array_merge(
+          $this->_habtmIds[$model->alias][$model->id][$habtmAlias],
+          $model->data[$habtmAlias][$habtmAlias]
+        ));
+      }
 
     }
   }
