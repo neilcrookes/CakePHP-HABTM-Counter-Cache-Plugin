@@ -351,7 +351,7 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
       // Initialise the update query, we'll add joins and fields below
       $updateQuery = array(
         'table' => $model->$habtmAlias->table,
-        'alias' => $habtmAlias,
+        'alias' => '`'.$habtmAlias.'`',
         'order' => null,
         'limit' => null,
         'group' => null,
