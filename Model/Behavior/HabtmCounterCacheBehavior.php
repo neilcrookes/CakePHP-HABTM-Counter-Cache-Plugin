@@ -374,7 +374,7 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
           'order' => null,
           'limit' => null,
           'group' => null,
-          'joins' => null
+          'joins' => array()
         );
 
         // Add conditions to the counter cache sub query if there is counter
