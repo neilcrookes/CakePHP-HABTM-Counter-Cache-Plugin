@@ -1,4 +1,5 @@
 <?php
+App::uses('ModelBehavior', 'Model');
 /**
  * Provides Counter Cache and Under Counter Cache (for hierarchical models)
  * behavior with scope for HABTM associations e.g. Post habtm Tag,Category where
@@ -85,7 +86,7 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
    *              ),
    *            );
    */
-  public function setup(&$model, $config = null) {
+  public function setup(Model $model, $config = array()) {
 
     // Work out the default names of what we expect the counter cache and under
     // counter cache fields to be. These will be overridden if specified in the
@@ -208,7 +209,7 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
    * @param AppModel $model
    * @return boolean Always true
    */
-  public function beforeSave(&$model) {
+  public function beforeSave(Model $model) {
 
     // If no model->id, inserting, so return
     if (!$model->id) {
@@ -251,7 +252,7 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
    * @param boolean $created
    * @return boolean Always true
    */
-  public function afterSave(&$model, $created) {
+  public function afterSave(Model $model, $created) {
 
     $this->_setNewHabtmIds($model);
 
@@ -306,7 +307,7 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
    * @param AppModel $model
    * @return boolean Always true
    */
-  function beforeDelete(&$model) {
+  function beforeDelete(Model $model, $cascade = true) {
 
     $this->_setOldHabtmIds($model);
 
@@ -320,7 +321,7 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
    *
    * @param AppModel $model
    */
-  function afterDelete(&$model) {
+  function afterDelete(Model $model) {
 
     $this->_updateCounterCache($model);
 
