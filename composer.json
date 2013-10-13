@@ -1,0 +1,10 @@
+{
+	"name": "neilcrookes/CakePHP-HABTM-Counter-Cache-Plugin",
+	"type": "cakephp-plugin",
+	"description" : "CakePHP Behavior in a plugin to handle counter caching for HABTM associations",
+	"license": "MIT",
+	"require": {
+		"php": ">=5.3.3",
+		"composer/installers": "*"
+	}
+}
