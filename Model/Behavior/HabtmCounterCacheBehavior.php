@@ -276,7 +276,7 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
       // are not changing, but the scope of the record may be, so we still need
       // need to leave the old ones in the _habtmIds property and re-calculate
       // any counts.
-      if (!isset($model->data[$habtmAlias][$habtmAlias])) {
+      if (empty($model->data[$habtmAlias][$habtmAlias])) {
         continue;
       }
 
