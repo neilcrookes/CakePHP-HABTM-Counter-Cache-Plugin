@@ -251,7 +251,7 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
    * @param boolean $created
    * @return boolean Always true
    */
-  public function afterSave(Model $model, $created) {
+  public function afterSave(Model $model, $created, $options = array()) {
 
     $this->_setNewHabtmIds($model);
 
@@ -276,7 +276,7 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
       // are not changing, but the scope of the record may be, so we still need
       // need to leave the old ones in the _habtmIds property and re-calculate
       // any counts.
-      if (!isset($model->data[$habtmAlias][$habtmAlias])) {
+      if (empty($model->data[$habtmAlias][$habtmAlias])) {
         continue;
       }
 
