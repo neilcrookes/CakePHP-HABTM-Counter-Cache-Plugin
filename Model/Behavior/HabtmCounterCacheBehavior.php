@@ -251,7 +251,7 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
    * @param boolean $created
    * @return boolean Always true
    */
-  public function afterSave(Model $model, $created) {
+  public function afterSave(Model $model, $created, $options = array()) {
 
     $this->_setNewHabtmIds($model);
 
