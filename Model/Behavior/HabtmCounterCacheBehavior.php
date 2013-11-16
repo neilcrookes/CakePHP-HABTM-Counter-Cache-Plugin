@@ -268,7 +268,6 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
    * @param AppModel $model
    */
   protected function _setNewHabtmIds($model) {
-      FireCake::log($this->settings);
     // Iterate through the habtm associations
     foreach ($this->settings[$model->alias] as $habtmAlias => $settings) {
 
@@ -359,7 +358,6 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
       );
 
       // Add the parts of the statement for updating the counter cache field
-
       if ($settings['counterCache']) {
         // First build the query that will be the subquery for calculating the
         // counter cache value.
@@ -482,7 +480,6 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
       // Wire up the final parts of the update query, render it and execute it.
       $updateQuery['fields'] = implode(', ', $updateQuery['fields']);
       $updateStatement = $ds->renderStatement('UPDATE', $updateQuery);
-      print "US: ".$updateStatement;
       $ds->execute($updateStatement);
 
     }
