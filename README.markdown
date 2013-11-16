@@ -49,7 +49,7 @@ Configuration is very flexible, for example:
 
 * Just attach and it will do counter caching for all hatbm associated models that have the counterCache field. E.g.
 
-    var $actsAs = array('HabtmCounterCache.HabtmCounterCache');
+    var $actsAs = array('HabtmCounterCache');
 
 * Specify counterCache, counterScope and/or underCounterCache keys in the configuration options when you attach the behavior for these settings to be applied to all habtm associations. E.g.
 
