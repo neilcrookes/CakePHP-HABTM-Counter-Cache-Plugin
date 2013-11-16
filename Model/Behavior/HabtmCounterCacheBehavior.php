@@ -359,9 +359,8 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
       );
 
       // Add the parts of the statement for updating the counter cache field
-      print "spr6";
+
       if ($settings['counterCache']) {
-          print "spr4";
         // First build the query that will be the subquery for calculating the
         // counter cache value.
         $counterQuery = array(
