@@ -86,7 +86,6 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
    *            );
    */
   public function setup(Model $model, $config = array()) {
-
     // Work out the default names of what we expect the counter cache and under
     // counter cache fields to be. These will be overridden if specified in the
     // config.
@@ -210,11 +209,6 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
    */
   public function beforeSave(Model $model, $options = array()) {
 
-    // If no model->id, inserting, so return
-    if (!$model->id) {
-      return true;
-    }
-
     $this->_setOldHabtmIds($model);
 
     return true;
@@ -229,6 +223,7 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
    */
   protected function _setOldHabtmIds(&$model) {
     foreach ($this->settings[$model->alias] as $habtmAlias => $settings) {
+        
       // Instantiate a model for the join table, e.g. PostsTag
       $JoinModelObj = ClassRegistry::init($settings['joinModel']);
       // Get ids of the current associated habtm records e.g. list of tag_id's
@@ -253,6 +248,11 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
    */
   public function afterSave(Model $model, $created, $options = array()) {
 
+    // If no model->id, inserting, so return, $model->id is set only after model is created.
+    if (!$model->id) {
+      return true;
+    }
+      
     $this->_setNewHabtmIds($model);
 
     $this->_updateCounterCache($model);
@@ -268,7 +268,6 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
    * @param AppModel $model
    */
   protected function _setNewHabtmIds($model) {
-
     // Iterate through the habtm associations
     foreach ($this->settings[$model->alias] as $habtmAlias => $settings) {
 
@@ -276,21 +275,21 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
       // are not changing, but the scope of the record may be, so we still need
       // need to leave the old ones in the _habtmIds property and re-calculate
       // any counts.
-      if (empty($model->data[$habtmAlias][$habtmAlias])) {
+      if (empty($model->data[$habtmAlias])) {
         continue;
       }
 
       // If there are no old habtm ids, add the new ones to the _habtmIds
       // property
       if (empty($this->_habtmIds[$model->alias][$model->id][$habtmAlias])) {
-        $this->_habtmIds[$model->alias][$model->id][$habtmAlias] = $model->data[$habtmAlias][$habtmAlias];
+        $this->_habtmIds[$model->alias][$model->id][$habtmAlias] = $model->data[$habtmAlias];
         continue;
       }
 
       // If there are old habtm ids merge them with the new ones
       $this->_habtmIds[$model->alias][$model->id][$habtmAlias] = array_unique(array_merge(
         $this->_habtmIds[$model->alias][$model->id][$habtmAlias],
-        $model->data[$habtmAlias][$habtmAlias]
+        $model->data[$habtmAlias]
       ));
 
     }
@@ -333,10 +332,9 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
    * @param AppModel $model
    */
   function _updateCounterCache(&$model) {
-
+    
     // Do one habtm associated model at a time
     foreach ($this->settings[$model->alias] as $habtmAlias => $settings) {
-
       // If there are no ids for this habtm to update the counts for, move on
       if (!isset($this->_habtmIds[$model->alias][$model->id][$habtmAlias])) {
         continue;
@@ -361,7 +359,6 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
 
       // Add the parts of the statement for updating the counter cache field
       if ($settings['counterCache']) {
-
         // First build the query that will be the subquery for calculating the
         // counter cache value.
         $counterQuery = array(
@@ -479,7 +476,7 @@ class HabtmCounterCacheBehavior extends ModelBehavior {
         $updateQuery['fields'][] = $settings['underCounterCache'] . ' = x.under_count';
 
       }
-
+      
       // Wire up the final parts of the update query, render it and execute it.
       $updateQuery['fields'] = implode(', ', $updateQuery['fields']);
       $updateStatement = $ds->renderStatement('UPDATE', $updateQuery);

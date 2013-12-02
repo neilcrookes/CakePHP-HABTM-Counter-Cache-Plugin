@@ -21,7 +21,7 @@ Usage example:
 
     class Post extends AppModel {
       var $name = 'Post';
-      var $actsAs = array('HabtmCounterCache.HabtmCounterCache');
+      var $actsAs = array('HabtmCounterCache');
       var $hasAndBelongsToMany = array('Category', 'Tag');
     }
 
@@ -49,12 +49,12 @@ Configuration is very flexible, for example:
 
 * Just attach and it will do counter caching for all hatbm associated models that have the counterCache field. E.g.
 
-    var $actsAs = array('HabtmCounterCache.HabtmCounterCache');
+    var $actsAs = array('HabtmCounterCache');
 
 * Specify counterCache, counterScope and/or underCounterCache keys in the configuration options when you attach the behavior for these settings to be applied to all habtm associations. E.g.
 
     var $actsAs = array(
-      'HabtmCounterCache.HabtmCounterCache' => array(
+      'HabtmCounterCache' => array(
         'counterScope' => array('active' => 1)
       ),
     );
@@ -62,7 +62,7 @@ Configuration is very flexible, for example:
 * Introduce habtm association specific counterCache and counterScope settings by using the habtm alias as the key E.g.
 
     var $actsAs = array(
-      'HabtmCounterCache.HabtmCounterCache' => array(
+      'HabtmCounterCache' => array(
         'Tag' => array(
           'counterCache' => 'weight'
         )
