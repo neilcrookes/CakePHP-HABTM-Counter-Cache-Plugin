@@ -34,7 +34,7 @@ Requirements
 Installation
 ------------
 
-    git submodule add git://github.com/neilcrookes/CakePHP-HABTM-Counter-Cache-Plugin.git app/plugins/habtm_counter_cache
+    git submodule add git://github.com/neilcrookes/CakePHP-HABTM-Counter-Cache-Plugin.git app/Plugin/habtm_counter_cache
 
 or download from http://github.com/neilcrookes/CakePHP-HABTM-Counter-Cache-Plugin
 
